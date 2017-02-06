@@ -1,0 +1,30 @@
+containerDefaults:
+  dns: 172.17.0.1
+  restart: always
+
+
+container:
+  elasticsearch-claudio:
+    maxContainers: 1
+    image: elasticsearch-kibana:latest
+    sourceVolumnes:
+      - source: /home/claudio/docker/elasticsearch-base
+        target: /home/claudio/docker/elasticsearch-claudio
+    volumes:
+      - source: /home/claudio/docker/elasticsearch-claudio
+        target: /var/lib/elasticsearch
+        uid: 105
+    expose:
+      - 9200
+      - 5601
+
+  jenkins:
+    maxContainers: 2
+    image: elasticsearch-kibana:latest
+    volumes:
+      - source: /home/claudio/docker/jenkins
+        target: /var/jenkins_home
+        uid: 1000
+    expose:
+      - 8080
+

@@ -1,0 +1,24 @@
+#!/usr/bin/env python3
+
+from setuptools import setup
+
+setup(
+    name='docker-manager',
+    version='0.0.1',
+    description='Tool for container management',
+    author='Claudio Walser',
+    author_email='claudio.walser@srf.ch',
+    url='https://github.com/claudio-walser/docker-container',
+    packages=[
+        '.',
+        'dockerManager',
+        'dockerManager.bin'
+    ],
+    install_requires=['pyyaml', 'argparse', 'argcomplete'],
+    entry_points={
+        'console_scripts': [
+            'docker-image = dockerManager.bin.image:main',
+            'docker-container = dockerManager.bin.container:main'
+        ]
+    }
+)
