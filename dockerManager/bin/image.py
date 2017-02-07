@@ -5,7 +5,6 @@ import sys
 import argcomplete
 import argparse
 
-from pprint import pprint
 
 # create parser in order to autocomplete
 parser = argparse.ArgumentParser()
@@ -37,7 +36,7 @@ argcomplete.autocomplete(parser)
 
 
 def main():
-  print("docker manager")
+  print("docker-image manager")
 
   arguments = parser.parse_args()
   pprint(arguments)

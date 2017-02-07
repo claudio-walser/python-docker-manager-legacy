@@ -1,7 +1,6 @@
 import os
 import yaml
 
-from pprint import pprint
 
 class Config:
 
@@ -22,5 +21,10 @@ class Config:
   def getContainerNames(self):
     return list(self.yaml['container'].keys())
 
+  def getDefaultContainerSettings(self):
+    return self.yaml['containerDefaults']
+
   def getContainerSettings(self, name):
-    return self.yaml['container'][name]
+    settings = self.getDefaultContainerSettings()
+    settings.update(self.yaml['container'][name])
+    return settings

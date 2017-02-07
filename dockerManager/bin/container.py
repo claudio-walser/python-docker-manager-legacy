@@ -8,9 +8,8 @@ import argparse
 import Cli
 
 from dockerManager.Config import Config
+from dockerManager.Hosts import Hosts
 from dockerManager.Container import Container
-
-from pprint import pprint
 
 interface = Cli.Interface()
 if not os.path.isfile('.docker-manager'):
@@ -51,17 +50,26 @@ def main():
   settings = config.getContainerSettings(arguments.name)
 
   for i in range(0, settings['maxContainers']):
+
     name = "%s-%s" % (arguments.name, i)
     container = Container(name, settings)
 
     result = False
     try:
+      # call container
       methodToCall = getattr(container, arguments.command)
-      result = methodToCall() 
-    except:
-      interface.error('Container command %s not found!' % arguments.command)
-      sys.exit(1)
+      result = methodToCall()
+
+      # call hosts
+      hosts = Hosts(container)
+      methodToCall = getattr(hosts, arguments.command)
+      result = methodToCall()
 
 
+    except Exception as e:
+      interface.error(e)
+      raise e
+
+
+  sys.exit(0)
   
-  pprint(arguments)

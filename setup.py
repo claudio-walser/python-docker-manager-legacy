@@ -14,7 +14,7 @@ setup(
         'dockerManager',
         'dockerManager.bin'
     ],
-    install_requires=['pyyaml', 'argparse', 'argcomplete'],
+    install_requires=['pyyaml', 'argparse', 'argcomplete', 'shutilwhich'],
     entry_points={
         'console_scripts': [
             'docker-image = dockerManager.bin.image:main',

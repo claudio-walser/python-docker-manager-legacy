@@ -7,11 +7,25 @@ container:
   elasticsearch-claudio:
     maxContainers: 1
     image: elasticsearch-kibana:latest
-    sourceVolumnes:
-      - source: /home/claudio/docker/elasticsearch-base
-        target: /home/claudio/docker/elasticsearch-claudio
+    sourceVolumes:
+      - source: /Users/walsercl/docker/elasticsearch-base
+        target: /Users/walsercl/docker/elasticsearch-claudio
     volumes:
-      - source: /home/claudio/docker/elasticsearch-claudio
+      - source: /Users/walsercl/docker/elasticsearch-claudio
+        target: /var/lib/elasticsearch
+        uid: 105
+    expose:
+      - 9200
+      - 5601
+
+  test:
+    maxContainers: 4
+    image: debian
+    sourceVolumes:
+      - source: /Users/walsercl/docker/elasticsearch-base
+        target: /Users/walsercl/docker/elasticsearch-test
+    volumes:
+      - source: /Users/walsercl/docker/elasticsearch-test
         target: /var/lib/elasticsearch
         uid: 105
     expose:
@@ -20,9 +34,9 @@ container:
 
   jenkins:
     maxContainers: 2
-    image: elasticsearch-kibana:latest
+    image: jenkins
     volumes:
-      - source: /home/claudio/docker/jenkins
+      - source: /Users/walsercl/docker/jenkins
         target: /var/jenkins_home
         uid: 1000
     expose:
