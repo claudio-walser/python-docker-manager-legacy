@@ -2,7 +2,7 @@ import Cli
 import os
 import shutil
 import json
-
+import time
 
 class Container(object):
 
@@ -62,7 +62,7 @@ class Container(object):
       for sourceVolume in self.settings['sourceVolumes']:
         if not os.path.isdir(sourceVolume['target']):
           shutil.copytree(sourceVolume['source'], sourceVolume['target'])
-    allVolumes = ''
+    volumeString = ''
     if 'volumes' in self.settings:
       for volume in self.settings['volumes']:
         if not os.path.isdir(volume['source']):
@@ -71,8 +71,8 @@ class Container(object):
 
         if 'uid' in volume:
           self.command.execute('chown -R %s %s' % (volume['uid'], volume['source']))
-        volumeString = '-v=%s:%s' % (volume['source'], volume['target'])
-        allVolumes += volumeString
+        volumeString += '-v=%s:%s ' % (volume['source'], volume['target'])
+
     dnsString = ''
     if 'dns' in self.settings:
       dnsString = '--dns=%s' % self.settings['dns']
@@ -81,6 +81,11 @@ class Container(object):
     if 'restart' in self.settings:
       restartString = '--restart=%s' % self.settings['restart']
 
+    exposeString = ''
+    if 'expose' in self.settings:
+      for expose in self.settings['expose']:
+        exposeString += '--expose=%s ' % expose
+
     command = 'docker run -d -it \
     --name=%s\
     --hostname=%s\
@@ -88,9 +93,12 @@ class Container(object):
     %s\
     %s\
     %s\
-    /bin/bash;' % (self.name, self.name, allVolumes, restartString, dnsString, self.settings['image'])
+    %s\
+    ' % (self.name, self.name, exposeString, volumeString, restartString, dnsString, self.settings['image'])
 
     self.command.execute(command)
+    time.sleep(2)
+    self.inspect()
 
   # callable methods
   def status(self):
@@ -108,6 +116,7 @@ class Container(object):
     self.interface.header("Start %s" % self.name)
     if not self.running:
       self.command.execute('docker start %s' % self.id)
+      self.inspect()
 
   def stop(self):
     self.interface.header("Stop %s" % self.name)
