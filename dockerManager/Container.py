@@ -97,7 +97,6 @@ class Container(object):
     ' % (self.name, self.name, exposeString, volumeString, restartString, dnsString, self.settings['image'])
 
     self.command.execute(command)
-    time.sleep(2)
     self.inspect()
 
   # callable methods

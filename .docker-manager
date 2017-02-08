@@ -4,6 +4,7 @@ containerDefaults:
 
 
 container:
+
   elasticsearch-claudio:
     maxContainers: 1
     image: nshou/elasticsearch-kibana:kibana4
@@ -18,9 +19,25 @@ container:
       - 9200
       - 5601
 
-  test:
-    maxContainers: 4
-    image: debian
+
+  icinga:
+    maxContainers: 1
+    image: jordan/icinga2:latest
+    volumes:
+      - source: /home/claudio/docker/icinga/icingaweb2/sessions
+        target: /var/lib/php5/sessions
+        uid: 33
+      - source: /home/claudio/docker/icinga/mysql
+        target: /var/lib/mysql
+        uid: 104
+      - source: /home/claudio/docker/icinga/icinga2
+        target: /var/lib/icinga2
+        uid: 105
+    expose:
+      - 80
+    nginx:
+      backendPort: 80
+
 
   jenkins:
     maxContainers: 1

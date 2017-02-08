@@ -18,7 +18,7 @@ class Nginx(object):
       upstreamString += '    server %s-%s' % (self.containerName, i)
       if 'backendPort' in self.settings['nginx']:
         upstreamString += ':%s' % (self.settings['nginx']['backendPort'])
-      upstreamString += '\n'
+      upstreamString += ';\n'
 
     upstreamString += '}'
 
@@ -44,7 +44,7 @@ class Nginx(object):
 
   def start(self):
     # should optimize and do that only on creation of the container
-    self.writeUpstreamConfig(self.container.getIpAddress(), self.container.getName())
+    self.writeUpstreamConfig()
     pass
 
   def stop(self):
