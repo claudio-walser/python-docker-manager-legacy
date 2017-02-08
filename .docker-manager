@@ -32,3 +32,5 @@ container:
     expose:
       - 8080
 
+    nginx:
+      backendPort: 8080

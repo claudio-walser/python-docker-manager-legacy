@@ -9,6 +9,7 @@ import Cli
 
 from dockerManager.Config import Config
 from dockerManager.Hosts import Hosts
+from dockerManager.Nginx import Nginx
 from dockerManager.Container import Container
 
 interface = Cli.Interface()
@@ -69,6 +70,12 @@ def main():
     except Exception as e:
       interface.error(e)
       raise e
+
+  if 'nginx' in settings and settings['nginx']:
+    nginx = Nginx(arguments.name, settings)
+
+    methodToCall = getattr(nginx, arguments.command)
+    result = methodToCall()
 
 
   sys.exit(0)
