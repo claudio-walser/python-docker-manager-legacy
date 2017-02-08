@@ -23,7 +23,7 @@ container:
     image: debian
 
   jenkins:
-    maxContainers: 2
+    maxContainers: 1
     image: jenkins:latest
     volumes:
       - source: /home/claudio/docker/jenkins
