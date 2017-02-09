@@ -7,13 +7,28 @@ container:
 
   elasticsearch-claudio:
     maxContainers: 1
-    image: nshou/elasticsearch-kibana:kibana4
+    image: nshou/elasticsearch-kibana
     sourceVolumes:
       - source: /home/claudio/docker/elasticsearch-base
         target: /home/claudio/docker/elasticsearch-claudio
     volumes:
-      - source: /home/claudio/docker/elasticsearch-claudio/elasticsearch/nodes
-        target: /home/elasticsearch/elasticsearch/data/nodes
+      - source: /home/claudio/docker/elasticsearch-claudio/elasticsearch
+        target: /home/elasticsearch/elasticsearch/data
+        uid: 1000
+    expose:
+      - 9200
+      - 5601
+
+
+  elasticsearch-heinz:
+    maxContainers: 1
+    image: nshou/elasticsearch-kibana
+    sourceVolumes:
+      - source: /home/claudio/docker/elasticsearch-base
+        target: /home/claudio/docker/elasticsearch-heinz
+    volumes:
+      - source: /home/claudio/docker/elasticsearch-heinz/elasticsearch
+        target: /home/elasticsearch/elasticsearch/data
         uid: 1000
     expose:
       - 9200
