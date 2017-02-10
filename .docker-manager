@@ -56,7 +56,7 @@ container:
 
   jenkins:
     maxContainers: 1
-    image: jenkins:latest
+    image: my-jenkins:latest
     volumes:
       - source: /home/claudio/docker/jenkins
         target: /var/jenkins_home
@@ -66,3 +66,18 @@ container:
 
     nginx:
       backendPort: 8080
+
+
+  web-heinz:
+    maxContainers: 1
+    image: php:7.1.1-apache
+    volumes:
+      - source: /home/claudio/docker/web-heinz
+        target: /var/www/html
+        uid: 33
+
+    expose:
+      - 80
+
+    nginx:
+      backendPort: 80

@@ -96,8 +96,16 @@ class Container(object):
     %s\
     ' % (self.name, self.name, exposeString, volumeString, restartString, dnsString, self.settings['image'])
 
-    self.command.execute(command)
+    self.id = self.command.execute(command)
+    self.created = True
+    self.waitForIp()
+
+  def waitForIp(self):
     self.inspect()
+    if self.getIpAddress() is None:
+      return self.waitForIp()
+
+    return True
 
   # callable methods
   def status(self):

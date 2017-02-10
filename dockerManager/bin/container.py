@@ -20,6 +20,10 @@ if not os.path.isfile('.docker-manager'):
 config = Config('.docker-manager')
 config.load()
 
+if len(sys.argv) == 2:
+    # default branch name is *
+    sys.argv.append('all-container')
+
 # create parser in order to autocomplete
 parser = argparse.ArgumentParser()
 
@@ -39,31 +43,30 @@ parser.add_argument(
 parser.add_argument(
     'name',
     help = 'Which container you want to execute the command on?',
-    choices = config.getContainerNames(),
+    choices = config.getContainerNames(True),
     type = str
 )
 
 
 argcomplete.autocomplete(parser)
 
-def main():
-  arguments = parser.parse_args()
-  settings = config.getContainerSettings(arguments.name)
+def dispatch(command, name):
+  settings = config.getContainerSettings(name)
 
   for i in range(0, settings['maxContainers']):
 
-    name = "%s-%s" % (arguments.name, i)
+    name = "%s-%s" % (name, i)
     container = Container(name, settings)
 
     result = False
     try:
       # call container
-      methodToCall = getattr(container, arguments.command)
+      methodToCall = getattr(container, command)
       result = methodToCall()
 
       # call hosts
       hosts = Hosts(container)
-      methodToCall = getattr(hosts, arguments.command)
+      methodToCall = getattr(hosts, command)
       result = methodToCall()
 
 
@@ -72,11 +75,21 @@ def main():
       raise e
 
   if 'nginx' in settings and settings['nginx']:
-    nginx = Nginx(arguments.name, settings)
+    nginx = Nginx(name, settings)
 
-    methodToCall = getattr(nginx, arguments.command)
+    methodToCall = getattr(nginx, command)
     result = methodToCall()
 
+def main():
+  arguments = parser.parse_args()
+  name = arguments.name
+  command = arguments.command
+  if name == 'all-container':
+    names =  config.getContainerNames()
+    for name in names:
+      dispatch(command, name)
+  else:
+    dispatch(command, name)
 
   sys.exit(0)
   

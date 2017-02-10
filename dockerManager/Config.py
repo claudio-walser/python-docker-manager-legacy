@@ -18,8 +18,11 @@ class Config:
       return True
     return False
 
-  def getContainerNames(self):
-    return list(self.yaml['container'].keys())
+  def getContainerNames(self, includeWildcard = False):
+    names = list(self.yaml['container'].keys())
+    if includeWildcard is True:
+      names.append('all-container')
+    return names
 
   def getDefaultContainerSettings(self):
     return self.yaml['containerDefaults']
