@@ -86,6 +86,11 @@ class Container(object):
       for expose in self.settings['expose']:
         exposeString += '--expose=%s ' % expose
 
+    environmentString = ''
+    if 'environment' in self.settings:
+      for environment in self.settings['environment']:
+        environmentString += '-e %s ' % environment
+
     command = 'docker run -d -it \
     --name=%s\
     --hostname=%s\
@@ -94,8 +99,9 @@ class Container(object):
     %s\
     %s\
     %s\
-    ' % (self.name, self.name, exposeString, volumeString, restartString, dnsString, self.settings['image'])
-
+    %s\
+    ' % (self.name, self.name, environmentString, exposeString, volumeString, restartString, dnsString, self.settings['image'])
+    #print(command)
     self.id = self.command.execute(command)
     self.created = True
     self.waitForIp()
