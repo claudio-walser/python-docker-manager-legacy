@@ -29,8 +29,10 @@ class Nginx(object):
     self.reload()
 
   def removeUpstreamConfig(self):
+
     filename = '%s/upstream-%s.conf' % (self.confd, self.containerName)
-    os.remove(filename)
+    if os.path.isfile(filename):
+      os.remove(filename)
 
   def reload(self):
     command = Cli.Command()

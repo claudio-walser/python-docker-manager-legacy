@@ -55,8 +55,8 @@ def dispatch(command, name):
 
   for i in range(0, settings['maxContainers']):
 
-    name = "%s-%s" % (name, i)
-    container = Container(name, settings)
+    containerName = "%s-%s" % (name, i)
+    container = Container(containerName, settings)
 
     result = False
     try:
