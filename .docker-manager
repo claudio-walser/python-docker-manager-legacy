@@ -69,35 +69,17 @@ container:
 
   reprepro:
     maxContainers: 1
-    image: bbinet/reprepro:latest
+    image: my-reprepro:latest
     volumes:
-      - source: /home/claudio/docker/reprepro/data
-        target: /data
-      - source: /home/claudio/docker/reprepro/config
-        target: /config
-    environment:
-      - RPP_DISTRIBUTIONS="wdev;wprod;jdev;jprod"
-      - RPP_CODENAME_wprod="wheezy-prod"
-      - RPP_CODENAME_jdev="jessie-dev"
-      - RPP_CODENAME_jprod="jessie-prod"
-      - RPP_ARCHITECTURES_wdev="amd64 armhf source"
-      - RPP_ARCHITECTURES_wprod="amd64 armhf source"
-      - RPP_ARCHITECTURES_jdev="amd64 armhf source"
-      - RPP_ARCHITECTURES_jprod="amd64 armhf source"
-      - RPP_INCOMINGS="in_wheezy;in_jessie"
-      - RPP_ALLOW_in_wheezy="stable>wheezy-dev"
-      - RPP_ALLOW_in_jessie="stable>jessie-dev"
+      - source: /home/claudio/docker/reprepro/.ssh
+        target: /home/reprepro/.ssh
+        uid: 1000
     expose:
       - 22
 
   web-heinz:
     maxContainers: 1
     image: php:7.1.1-apache
-    volumes:
-      - source: /home/claudio/docker/web-heinz
-        target: /var/www/html
-        uid: 33
-
     expose:
       - 80
 
