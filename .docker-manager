@@ -103,3 +103,4 @@ container:
 
     nginx:
       backendPort: 80
+      password: <pwgen>
