@@ -10,6 +10,7 @@ import Cli
 from dockerManager.Config import Config
 from dockerManager.Hosts import Hosts
 from dockerManager.Nginx import Nginx
+from dockerManager.BasicAuth import BasicAuth
 from dockerManager.Container import Container
 
 interface = Cli.Interface()
@@ -76,8 +77,11 @@ def dispatch(command, name):
 
   if 'nginx' in settings and settings['nginx']:
     nginx = Nginx(name, settings)
-
     methodToCall = getattr(nginx, command)
+    result = methodToCall()
+
+    basicAuth = BasicAuth(name, settings)
+    methodToCall = getattr(basicAuth, command)
     result = methodToCall()
 
 def main():

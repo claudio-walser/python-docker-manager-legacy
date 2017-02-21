@@ -5,24 +5,24 @@ import Cli
 class Nginx(object):
 
   settings = None
-  containerName = None
+  name = None
   confd = '/etc/nginx/conf.d'
 
-  def __init__(self, containerName, settings):
-    self.containerName = containerName
+  def __init__(self, name, settings):
+    self.name = name
     self.settings = settings
 
   def writeUpstreamConfig(self):
-    upstreamString = 'upstream %s {\n' % self.containerName
+    upstreamString = 'upstream %s {\n' % self.name
     for i in range(0, self.settings['maxContainers']):
-      upstreamString += '    server %s-%s' % (self.containerName, i)
+      upstreamString += '    server %s-%s' % (self.name, i)
       if 'backendPort' in self.settings['nginx']:
         upstreamString += ':%s' % (self.settings['nginx']['backendPort'])
       upstreamString += ';\n'
 
     upstreamString += '}'
 
-    filename = '%s/upstream-%s.conf' % (self.confd, self.containerName)
+    filename = '%s/upstream-%s.conf' % (self.confd, self.name)
     with open(filename, 'w') as f:
       f.write(upstreamString)
       f.close()
@@ -30,7 +30,7 @@ class Nginx(object):
 
   def removeUpstreamConfig(self):
 
-    filename = '%s/upstream-%s.conf' % (self.confd, self.containerName)
+    filename = '%s/upstream-%s.conf' % (self.confd, self.name)
     if os.path.isfile(filename):
       os.remove(filename)
 
