@@ -1,10 +1,9 @@
 import os
 import Cli
 
-
 class BasicAuth(object):
 
-  cli = Cli()
+  cli = Cli.Command()
   basePath = '/etc/nginx/basic_auth.d'
 
 
@@ -12,8 +11,8 @@ class BasicAuth(object):
     self.name = name
     self.settings = settings
 
-  def write(self, name):
-    
+  def write(self):
+
     if 'password' in self.settings['nginx'] and self.settings['nginx']['password'] == '<pwgen>':
       pw = self.cli.execute("pwgen --capitalize --numerals --symbols -1 32 1")
     elif 'password' in self.settings['nginx']:
@@ -21,12 +20,12 @@ class BasicAuth(object):
     else:
       return False;
 
-    self.cli.execute("printf \"%s:$(openssl passwd -crypt '%s')\" > %s/%s" % (name, pw, self.basePath, name))
-    print("%s:%s" % (name, pw))
+    self.cli.execute("printf \"%s:$(openssl passwd -crypt '%s')\" > %s/%s" % (self.name, pw, self.basePath, self.name))
+    print("%s:%s" % (self.name, pw))
 
-  def remove(self, name):
-    if os.path.isfile("%s/%s" % (self.basePath, name)):
-      self.cli.execute("rm  %s/%s" % (self.basePath, name))
+  def remove(self):
+    if os.path.isfile("%s/%s" % (self.basePath, self.name)):
+      self.cli.execute("rm  %s/%s" % (self.basePath, self.name))
 
 
   # callable methods
