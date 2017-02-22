@@ -19,7 +19,6 @@ container:
       - 9200
       - 5601
 
-
   elasticsearch-heinz:
     maxContainers: 1
     image: nshou/elasticsearch-kibana
@@ -33,7 +32,6 @@ container:
     expose:
       - 9200
       - 5601
-
 
   icinga:
     maxContainers: 1
@@ -73,6 +71,12 @@ container:
     volumes:
       - source: /home/claudio/docker/reprepro/.ssh
         target: /home/reprepro/.ssh
+        uid: 1000
+      - source: /home/claudio/docker/reprepro/.gnupg
+        target: /home/reprepro/.gnupg
+        uid: 1000
+      - source: /home/claudio/docker/reprepro/repositories
+        target: /var/repositories
         uid: 1000
     expose:
       - 22
