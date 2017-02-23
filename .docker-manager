@@ -78,6 +78,9 @@ container:
       - source: /home/claudio/docker/reprepro/repositories
         target: /var/repositories
         uid: 1000
+      - source: /home/claudio/docker/reprepro/bin
+        target: /usr/local/bin
+        uid: 0
     expose:
       - 22
 
