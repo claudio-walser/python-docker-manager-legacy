@@ -19,6 +19,17 @@ container:
       - 9200
       - 5601
 
+
+  web-rechtsberatung-walser:
+    maxContainers: 1
+    image: php:7.1.1-apache
+    expose:
+      - 80
+
+    nginx:
+      backendPort: 80
+      password: <pwgen>
+
   elasticsearch-heinz:
     maxContainers: 1
     image: nshou/elasticsearch-kibana
@@ -54,7 +65,7 @@ container:
 
   jenkins:
     maxContainers: 1
-    image: my-jenkins:latest
+    image: registry-0:5000/net-sec/jenkins:latest
     volumes:
       - source: /home/claudio/docker/jenkins
         target: /var/jenkins_home
@@ -65,9 +76,19 @@ container:
     nginx:
       backendPort: 8080
 
+  registry:
+    maxContainers: 1
+    image: registry:latest
+    volumes:
+      - source: /home/claudio/docker/registry/data
+        target: /var/lib/registry
+    expose:
+      - 5000
+
+
   reprepro:
     maxContainers: 1
-    image: my-reprepro:latest
+    image: registry-0:5000/net-sec/reprepro:latest
     volumes:
       - source: /home/claudio/docker/reprepro/.ssh
         target: /home/reprepro/.ssh
@@ -81,15 +102,8 @@ container:
       - source: /home/claudio/docker/reprepro/bin
         target: /usr/local/bin
         uid: 0
+      - source: /home/claudio/docker/reprepro/nginx
+        target: /etc/nginx/sites-enabled
+        uid: 0
     expose:
       - 22
-
-  web-heinz:
-    maxContainers: 1
-    image: php:7.1.1-apache
-    expose:
-      - 80
-
-    nginx:
-      backendPort: 80
-      password: <pwgen>
