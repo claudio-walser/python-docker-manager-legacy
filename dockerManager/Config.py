@@ -1,7 +1,6 @@
 import os
 import yaml
 
-
 class Config:
 
   yaml = {}
@@ -25,7 +24,7 @@ class Config:
     return names
 
   def getDefaultContainerSettings(self):
-    return self.yaml['containerDefaults']
+    return self.yaml['containerDefaults'].copy()
 
   def getContainerSettings(self, name):
     settings = self.getDefaultContainerSettings()
