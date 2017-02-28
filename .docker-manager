@@ -56,6 +56,23 @@ container:
     nginx:
       backendPort: 8080
 
+
+  redmine:
+    maxContainers: 1
+    image: redmine:latest
+    volumes:
+      - source: /home/claudio/docker/redmine/files
+        target: /usr/src/redmine/files
+        uid: 999
+      - source: /home/claudio/docker/redmine/sqlite
+        target: /usr/src/redmine/sqlite
+        uid: 999
+    expose:
+      - 3000
+    nginx:
+      backendPort: 3000
+
+
   registry:
     maxContainers: 1
     image: registry:latest
