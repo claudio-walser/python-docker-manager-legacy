@@ -19,10 +19,9 @@ container:
       - 9200
       - 5601
 
-
   web-rechtsberatung-walser:
     maxContainers: 1
-    image: php:7.1.1-apache
+    image: registry-0:5000/net-sec/web-rechtsberatung-walser:latest
     expose:
       - 80
 
@@ -43,25 +42,6 @@ container:
     expose:
       - 9200
       - 5601
-
-  icinga:
-    maxContainers: 1
-    image: jordan/icinga2:latest
-    volumes:
-      - source: /home/claudio/docker/icinga/icingaweb2/sessions
-        target: /var/lib/php5/sessions
-        uid: 33
-      - source: /home/claudio/docker/icinga/mysql
-        target: /var/lib/mysql
-        uid: 104
-      - source: /home/claudio/docker/icinga/icinga2
-        target: /var/lib/icinga2
-        uid: 105
-    expose:
-      - 80
-    nginx:
-      backendPort: 80
-
 
   jenkins:
     maxContainers: 1
@@ -84,7 +64,6 @@ container:
         target: /var/lib/registry
     expose:
       - 5000
-
 
   reprepro:
     maxContainers: 1
