@@ -18,16 +18,12 @@ container:
     expose:
       - 9200
       - 5601
-
-  web-rechtsberatung-walser:
-    maxContainers: 1
-    image: registry-0:5000/net-sec/web-rechtsberatung-walser:latest
-    expose:
-      - 80
-
     nginx:
-      backendPort: 80
-      password: <pwgen>
+      backendPort:
+        - port: 5601
+          name: kibana
+        - port: 9200
+          name: elasticsearch
 
   elasticsearch-heinz:
     maxContainers: 1
@@ -42,6 +38,22 @@ container:
     expose:
       - 9200
       - 5601
+    nginx:
+      backendPort:
+        - port: 5601
+          name: kibana
+        - port: 9200
+          name: elasticsearch
+
+  web-rechtsberatung-walser:
+    maxContainers: 1
+    image: registry-0:5000/net-sec/web-rechtsberatung-walser:latest
+    expose:
+      - 80
+
+    nginx:
+      backendPort: 80
+      password: <pwgen>
 
   jenkins:
     maxContainers: 1
@@ -66,6 +78,9 @@ container:
         uid: 999
       - source: /home/claudio/docker/redmine/sqlite
         target: /usr/src/redmine/sqlite
+        uid: 999
+      - source: /home/claudio/docker/redmine/themes
+        target: /usr/src/redmine/public/themes
         uid: 999
     expose:
       - 3000
