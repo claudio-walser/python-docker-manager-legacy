@@ -95,6 +95,9 @@ class Container(object):
     if "privileged" in self.settings:
       privilegedString = '--privileged'
 
+    cpuString = ''
+    if 'cpus' in self.settings:
+      cpuString += '--cpus="%s"' % (self.settings.cpus)
 
     command = 'docker run -d -it \
     --name=%s\
@@ -106,7 +109,8 @@ class Container(object):
     %s\
     %s\
     %s\
-    ' % (self.name, self.name, environmentString, privilegedString, exposeString, volumeString, restartString, dnsString, self.settings['image'])
+    %s\
+    ' % (self.name, self.name, cpuString, environmentString, privilegedString, exposeString, volumeString, restartString, dnsString, self.settings['image'])
     #print(command)
     self.id = self.command.execute(command)
     self.created = True
