@@ -5,6 +5,16 @@ containerDefaults:
 
 container:
 
+  openvpn:
+    maxContainers: 1
+    image: kylemanna/openvpn
+    volumes:
+      - source: /home/claudio/docker/openvpn
+        target: /etc/openvpn
+        uid: 0
+    expose:
+      - 1194
+
   claudio:
     maxContainers: 1
     cpus: 1.5
