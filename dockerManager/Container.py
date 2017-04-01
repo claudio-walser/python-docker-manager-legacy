@@ -99,6 +99,10 @@ class Container(object):
     if 'cpus' in self.settings:
       cpuString += '--cpus="%s"' % (self.settings.cpus)
 
+    capAddString = ''
+    if 'capAdd' in self.settings:
+      cpuString += '--cap-add="%s"' % (self.settings.capAdd)
+
     command = 'docker run -d -it \
     --name=%s\
     --hostname=%s\
@@ -110,7 +114,8 @@ class Container(object):
     %s\
     %s\
     %s\
-    ' % (self.name, self.name, cpuString, environmentString, privilegedString, exposeString, volumeString, restartString, dnsString, self.settings['image'])
+    %s\
+    ' % (self.name, self.name, cpuString, capAddString, environmentString, privilegedString, exposeString, volumeString, restartString, dnsString, self.settings['image'])
     #print(command)
     self.id = self.command.execute(command)
     self.created = True

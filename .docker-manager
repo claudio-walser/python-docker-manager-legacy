@@ -8,6 +8,7 @@ container:
   openvpn:
     maxContainers: 1
     image: kylemanna/openvpn
+    capAdd: NET_ADMIN
     volumes:
       - source: /home/claudio/docker/openvpn
         target: /etc/openvpn
