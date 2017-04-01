@@ -101,7 +101,7 @@ class Container(object):
 
     capAddString = ''
     if 'capAdd' in self.settings:
-      capAddString += '--cap-add="%s"' % (self.settings.capAdd)
+      capAddString += '--cap-add="%s"' % (self.settings['capAdd'])
 
     command = 'docker run -d -it \
     --name=%s\
