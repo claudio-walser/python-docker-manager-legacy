@@ -5,6 +5,35 @@ containerDefaults:
 
 container:
 
+  lam:
+    maxContainers: 1
+    image: net-sec/lam
+    volumes:
+      - source: /home/claudio/docker/lam/config
+        target: /var/lib/ldap-account-manager/config
+        uid: 33
+      - source: /home/claudio/docker/lam/etc
+        target: /etc/ldap-account-manager/
+        uid: 33
+    expose:
+      - 80
+
+  ldap:
+    maxContainers: 1
+    image: beli/ldap
+    volumes:
+      - source: /home/claudio/docker/ldap/config
+        target: /config
+        uid: 104
+      - source: /home/claudio/docker/ldap/data
+        target: /data
+        uid: 104
+    environment:
+      - CONF_ROOTPW="password"
+      - CONF_BASEDN="dc=test,dc=com"
+    expose:
+      - 389
+
   openvpn:
     maxContainers: 1
     image: kylemanna/openvpn

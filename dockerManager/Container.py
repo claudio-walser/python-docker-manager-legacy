@@ -111,7 +111,7 @@ class Container(object):
     %s\
     %s\
     ' % (self.name, self.name, cpuString, environmentString, privilegedString, exposeString, volumeString, restartString, dnsString, self.settings['image'])
-    #print(command)
+    print(command)
     self.id = self.command.execute(command)
     self.created = True
     self.waitForIp()
