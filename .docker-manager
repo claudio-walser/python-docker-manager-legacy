@@ -37,6 +37,7 @@ container:
   openvpn:
     maxContainers: 1
     image: kylemanna/openvpn
+    capAdd: NET_ADMIN
     volumes:
       - source: /home/claudio/docker/openvpn
         target: /etc/openvpn
@@ -44,72 +45,13 @@ container:
     expose:
       - 1194
 
-  claudio:
-    maxContainers: 1
-    cpus: 1.5
-    image: registry-0:5000/net-sec/elasticsearch-kibana
-    sourceVolumes:
-      - source: /home/claudio/docker/elasticsearch-base
-        target: /home/claudio/docker/elasticsearch-claudio
-    volumes:
-      - source: /home/claudio/docker/elasticsearch-claudio/elasticsearch
-        target: /home/elasticsearch/elasticsearch/data
-        uid: 1000
-    expose:
-      - 9200
-      - 5601
-    environment:
-      - KIBANA_BASE_PATH="/claudio/kibana"
-    nginx:
-      backendPort:
-        - port: 5601
-          name: kibana
-        - port: 9200
-          name: elasticsearch
-
-  heinz:
-    maxContainers: 1
-    cpus: 1.5
-    image: registry-0:5000/net-sec/elasticsearch-kibana
-    sourceVolumes:
-      - source: /home/claudio/docker/elasticsearch-base
-        target: /home/claudio/docker/elasticsearch-heinz
-    volumes:
-      - source: /home/claudio/docker/elasticsearch-heinz/elasticsearch
-        target: /home/elasticsearch/elasticsearch/data
-        uid: 1000
-    expose:
-      - 9200
-      - 5601
-    environment:
-      - KIBANA_BASE_PATH="/heinz/kibana"
-    nginx:
-      backendPort:
-        - port: 5601
-          name: kibana
-        - port: 9200
-          name: elasticsearch
-
-  web-rechtsberatung-walser:
-    maxContainers: 1
-    image: registry-0:5000/net-sec/web-rechtsberatung-walser:latest
-    expose:
-      - 80
-
-    nginx:
-      backendPort: 80
-      password: <pwgen>
-
   hugo-rechtsberatung-walser:
     maxContainers: 1
     image: registry-0:5000/net-sec/hugo-rechtsberatung-walser:latest
     expose:
       - 80
-
     nginx:
       backendPort: 80
-      password: <pwgen>
-
 
   jenkins:
     maxContainers: 1
@@ -120,7 +62,6 @@ container:
         uid: 1000
     expose:
       - 8080
-
     nginx:
       backendPort: 8080
 
