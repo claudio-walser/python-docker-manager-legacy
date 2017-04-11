@@ -7,7 +7,7 @@ container:
 
   lam:
     maxContainers: 1
-    image: net-sec/lam
+    image: registry-0:5000/net-sec/lam
     volumes:
       - source: /home/claudio/docker/lam/config
         target: /var/lib/ldap-account-manager/config
@@ -20,13 +20,13 @@ container:
 
   ldap:
     maxContainers: 1
-    image: beli/ldap
+    image: dinkel/openldap
     volumes:
       - source: /home/claudio/docker/ldap/config
-        target: /config
+        target: /etc/ldap
         uid: 104
       - source: /home/claudio/docker/ldap/data
-        target: /data
+        target: /var/lib/ldap
         uid: 104
     environment:
       - CONF_ROOTPW="password"
@@ -42,6 +42,8 @@ container:
       - source: /home/claudio/docker/openvpn
         target: /etc/openvpn
         uid: 0
+    portMapping:
+      - 1194:1194
     expose:
       - 1194
 

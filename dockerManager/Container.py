@@ -103,6 +103,11 @@ class Container(object):
     if 'capAdd' in self.settings:
       capAddString += '--cap-add="%s"' % (self.settings['capAdd'])
 
+    portMappingString = ''
+    if 'portMapping' in self.settings:
+      for portMapping in self.settings['portMapping']:
+        portMappingString += '-p %s ' % portMapping
+
     command = 'docker run -d -it \
     --name=%s\
     --hostname=%s\
