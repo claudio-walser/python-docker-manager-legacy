@@ -120,7 +120,8 @@ class Container(object):
     %s\
     %s\
     %s\
-    ' % (self.name, self.name, cpuString, capAddString, environmentString, privilegedString, exposeString, volumeString, restartString, dnsString, self.settings['image'])
+    %s\
+    ' % (self.name, self.name, portMappingString, cpuString, capAddString, environmentString, privilegedString, exposeString, volumeString, restartString, dnsString, self.settings['image'])
     print(command)
     self.id = self.command.execute(command)
     self.created = True
