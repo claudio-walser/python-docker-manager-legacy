@@ -7,7 +7,7 @@ container:
 
   lam:
     maxContainers: 1
-    image: registry-0:5000/net-sec/lam
+    image: registry-0:5000/net-sec/lam:latest
     volumes:
       - source: /home/claudio/docker/lam/config
         target: /var/lib/ldap-account-manager/config
@@ -36,7 +36,7 @@ container:
 
   openvpn:
     maxContainers: 1
-    image: kylemanna/openvpn
+    image: registry-0:5000/net-sec/openvpn-debug:latest
     capAdd: NET_ADMIN
     volumes:
       - source: /home/claudio/docker/openvpn
