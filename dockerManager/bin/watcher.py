@@ -38,7 +38,7 @@ def main():
     sys.exit(1)
 
   try:
-    config = Config('.docker-manager')
+    config = Config(configFile)
     config.load()
   except:
     interface.error('Config error - could not parse your given config file!')
