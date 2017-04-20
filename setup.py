@@ -18,7 +18,7 @@ setup(
     entry_points={
         'console_scripts': [
             'docker-image = dockerManager.bin.image:main',
-            'docker-container = dockerManager.bin.container:main'
+            'docker-container = dockerManager.bin.container:main',
             'docker-watcher = dockerManager.bin.watcher:main'
         ]
     }

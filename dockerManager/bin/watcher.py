@@ -9,6 +9,7 @@ import Cli
 
 from dockerManager.Config import Config
 from dockerManager.Container import Container
+from dockerManager.Hosts import Hosts
 
 
 interface = Cli.Interface()
@@ -50,7 +51,11 @@ def main():
     for i in range(0, settings['maxContainers']):
       containerName = "%s-%s" % (name, i)
       container = Container(containerName, settings)
-      print(container.getIpAddress())
+      hosts = Hosts(container)
+      hosts.stop()
+      if container.getIpAddress():
+        hosts.start()
+        print("Changed hosts file with: %s    %s" % (container.getIpAddress(), containerName))
 
   sys.exit(0)
   
