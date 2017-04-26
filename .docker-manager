@@ -20,7 +20,7 @@ container:
 
   ldap:
     maxContainers: 1
-    image: dinkel/openldap
+    image: beli/ldap
     volumes:
       - source: /home/claudio/docker/ldap/config
         target: /etc/ldap
