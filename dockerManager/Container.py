@@ -14,6 +14,8 @@ class Container(object):
   dockerSettings = {}
   interface = None
   command = None
+  waitedForIp = 0
+  waitForIpMax = 20
 
   def __init__(self, name, settings):
     self.name = name
@@ -128,8 +130,13 @@ class Container(object):
     self.waitForIp()
 
   def waitForIp(self):
+    self.waitedForIp += 1
+    if self.waitedForIp >= self.waitForIpMax:
+      return False
+
     self.inspect()
     if self.getIpAddress() is None:
+
       return self.waitForIp()
 
     return True
