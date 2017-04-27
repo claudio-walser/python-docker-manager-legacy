@@ -5,6 +5,28 @@ containerDefaults:
 
 container:
 
+  claudio:
+    maxContainers: 1
+    image: registry-0:5000/net-sec/elasticsearch-kibana
+    sourceVolumes:
+      - source: /home/claudio/docker/elasticsearch-base
+        target: /home/claudio/docker/elasticsearch-claudio
+    volumes:
+      - source: /home/claudio/docker/elasticsearch-claudio-1/elasticsearch
+        target: /home/elasticsearch/elasticsearch/data
+        uid: 1000
+    expose:
+      - 9200
+      - 5601
+    environment:
+      - KIBANA_BASE_PATH="/claudio/kibana"
+    nginx:
+      backendPort:
+        - port: 5601
+          name: kibana
+        - port: 9200
+          name: elasticsearch
+
   lam:
     maxContainers: 1
     image: registry-0:5000/net-sec/lam:latest
