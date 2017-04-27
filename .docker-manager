@@ -12,7 +12,7 @@ container:
       - source: /home/claudio/docker/elasticsearch-base
         target: /home/claudio/docker/elasticsearch-claudio
     volumes:
-      - source: /home/claudio/docker/elasticsearch-claudio-1/elasticsearch
+      - source: /home/claudio/docker/elasticsearch-claudio/elasticsearch
         target: /home/elasticsearch/elasticsearch/data
         uid: 1000
     expose:
