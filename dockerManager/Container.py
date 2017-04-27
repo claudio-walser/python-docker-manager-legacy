@@ -97,7 +97,7 @@ class Container(object):
 
     cpuString = ''
     if 'cpus' in self.settings:
-      cpuString += '--cpus="%s"' % (self.settings.cpus)
+      cpuString += '--cpus="%s"' % (self.settings['cpus'])
 
     capAddString = ''
     if 'capAdd' in self.settings:
