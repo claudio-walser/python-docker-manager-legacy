@@ -7,9 +7,9 @@ container:
 
   claudio:
     maxContainers: 1
-    image: registry-0:5000/net-sec/elasticsearch-kibana
+    image: registry-0:5000/net-sec/elasticsearch-kibana:kibana4
     sourceVolumes:
-      - source: /home/claudio/docker/elasticsearch-base
+      - source: /home/claudio/docker/elasticsearch-base-kibana4
         target: /home/claudio/docker/elasticsearch-claudio
     volumes:
       - source: /home/claudio/docker/elasticsearch-claudio/elasticsearch
