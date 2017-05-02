@@ -5,6 +5,41 @@ containerDefaults:
 
 container:
 
+  graphite-test:
+    maxContainers: 1
+    image: andreasjansson/collectd-write-graphite
+    environment:
+      - HOST_NAME="graphite-test"
+      - GRAPHITE_HOST="graphite-0"
+      - GRAPHITE_PORT="2003"
+      - GRAPHITE_PREFIX="collectd_"
+
+  grafana:
+    maxContainers: 1
+    image: grafana/grafana
+    volumes:
+      - source: /home/claudio/docker/grafana/lib
+        target: /var/lib/grafana
+      - source: /home/claudio/docker/grafana/conf
+        target: /etc/grafana
+      - source: /home/claudio/docker/grafana/log
+        target: /var/log/grafana
+    expose:
+      - 3000
+    nginx:
+      backendPort: 3000
+
+  graphite:
+    maxContainers: 1
+    image: rvernica/graphite
+    expose:
+      - 8080
+      - 2003
+      - 2004
+      - 7002
+    nginx:
+      backendPort: 8080
+
   claudio:
     maxContainers: 1
     image: registry-0:5000/net-sec/elasticsearch-kibana
