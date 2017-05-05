@@ -66,6 +66,8 @@ container:
         target: /var/lib/docker:ro
     expose:
       - 8080
+    command
+      - '-docker tcp://172.17.0.1:2375'
 
   heinz:
     maxContainers: 1
