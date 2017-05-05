@@ -5,15 +5,6 @@ containerDefaults:
 
 container:
 
-  graphite-test:
-    maxContainers: 1
-    image: andreasjansson/collectd-write-graphite
-    environment:
-      - HOST_NAME="graphite-test"
-      - GRAPHITE_HOST="graphite-0"
-      - GRAPHITE_PORT="2003"
-      - GRAPHITE_PREFIX="collectd_"
-
   grafana:
     maxContainers: 1
     image: grafana/grafana
@@ -29,16 +20,52 @@ container:
     nginx:
       backendPort: 3000
 
-  graphite:
+  prometheus:
     maxContainers: 1
-    image: rvernica/graphite
+    image: prom/prometheus
+    volumes:
+      - source: /home/claudio/docker/prometheus/conf
+        target: /etc/prometheus/
+      - source: /home/claudio/docker/prometheus/data
+        target: /prometheus
+    expose:
+      - 9090
+    command:
+      - '-config.file=/etc/prometheus/prometheus.yml'
+      - '-storage.local.path=/prometheus'
+
+
+  node-exporter:
+    maxContainers: 1
+    image: prom/node-exporter
+    volumes:
+      - source: /proc
+        target: /host/proc
+      - source: /sys
+        target: /host/sys
+      - source: /
+        target: /rootfs
+    expose:
+      - 9100
+    command:
+      - '-collector.procfs=/host/proc'
+      - '-collector.sysfs=/host/sysfs'
+      - '-collector.filesystem.ignored-mount-points="^/(sys|proc|dev|host|etc)($$|/)"'
+
+  cadvisor:
+    maxContainers: 1
+    image: google/cadvisor
+    volumes:
+      - source: /
+        target: /rootfs:ro
+      - source: /var/run
+        target: /var/run
+      - source: /sys
+        target: /sys:ro
+      - source: /var/lib/docker
+        target: /var/lib/docker:ro
     expose:
       - 8080
-      - 2003
-      - 2004
-      - 7002
-    nginx:
-      backendPort: 8080
 
   heinz:
     maxContainers: 1

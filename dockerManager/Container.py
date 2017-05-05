@@ -110,6 +110,11 @@ class Container(object):
       for portMapping in self.settings['portMapping']:
         portMappingString += '-p %s ' % portMapping
 
+    commandString = ''
+    if 'command' in self.settings:
+      for command in self.settings['command']:
+        commandString += " %s" % command
+
     command = 'docker run -d -it \
     --name=%s\
     --hostname=%s\
@@ -123,7 +128,8 @@ class Container(object):
     %s\
     %s\
     %s\
-    ' % (self.name, self.name, portMappingString, cpuString, capAddString, environmentString, privilegedString, exposeString, volumeString, restartString, dnsString, self.settings['image'])
+    %s\
+    ' % (self.name, self.name, portMappingString, cpuString, capAddString, environmentString, privilegedString, exposeString, volumeString, restartString, dnsString, self.settings['image'], commandString)
     print(command)
     self.id = self.command.execute(command)
     self.created = True
