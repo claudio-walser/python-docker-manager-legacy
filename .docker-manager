@@ -5,6 +5,31 @@ containerDefaults:
 
 container:
 
+  mail:
+    maxContainers: 1
+    image: tvial/docker-mailserver:latest
+    domainname: net-sec.ch
+    volumes:
+      - source: /home/claudio/docker/mail/data
+        target: /var/mail
+      - source: /home/claudio/docker/mail/state
+        target: /var/mail-state
+      - source: /home/claudio/docker/mail/config
+        target: /tmp/docker-mailserver/
+    expose:
+      - 25
+      - 143
+      - 587
+      - 993
+    environment:
+      - ENABLE_SPAMASSASSIN=1
+      - ENABLE_CLAMAV=1
+      - ENABLE_FAIL2BAN=1
+      - ENABLE_POSTGREY=1
+      - ONE_DIR=1
+      - DMS_DEBUG=0
+    capAdd: NET_ADMIN
+
   grafana:
     maxContainers: 1
     image: grafana/grafana
