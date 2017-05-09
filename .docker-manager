@@ -40,11 +40,11 @@ container:
     image: prom/node-exporter
     volumes:
       - source: /proc
-        target: /host/proc
+        target: /host/proc:ro
       - source: /sys
-        target: /host/sys
+        target: /host/sys:ro
       - source: /
-        target: /rootfs
+        target: /rootfs:ro
     expose:
       - 9100
     command:
