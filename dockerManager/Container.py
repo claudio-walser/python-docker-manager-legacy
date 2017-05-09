@@ -75,6 +75,10 @@ class Container(object):
           self.command.execute('chown -R %s %s' % (volume['uid'], volume['source']))
         volumeString += '-v=%s:%s ' % (volume['source'], volume['target'])
 
+    hostnameString = self.name
+    if 'domainname' in self.settings:
+      hostnameString += '.%s' % self.settings['domainname']
+
     dnsString = ''
     if 'dns' in self.settings:
       dnsString = '--dns=%s' % self.settings['dns']
@@ -129,7 +133,7 @@ class Container(object):
     %s\
     %s\
     %s\
-    ' % (self.name, self.name, portMappingString, cpuString, capAddString, environmentString, privilegedString, exposeString, volumeString, restartString, dnsString, self.settings['image'], commandString)
+    ' % (self.name, hostnameString, portMappingString, cpuString, capAddString, environmentString, privilegedString, exposeString, volumeString, restartString, dnsString, self.settings['image'], commandString)
     print(command)
     self.id = self.command.execute(command)
     self.created = True
