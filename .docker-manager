@@ -8,6 +8,7 @@ container:
   mail:
     maxContainers: 1
     image: tvial/docker-mailserver:latest
+    hostname: mail
     domainname: net-sec.ch
     volumes:
       - source: /home/claudio/docker/mail/data
@@ -16,6 +17,8 @@ container:
         target: /var/mail-state
       - source: /home/claudio/docker/mail/config
         target: /tmp/docker-mailserver/
+      - source: /etc/letsencrypt
+        target: /etc/letsencrypt:ro
     expose:
       - 25
       - 143
@@ -27,6 +30,7 @@ container:
       - 143:143
       - "25:25"
     environment:
+      - SSL_TYPE=letsencrypt
       - ENABLE_SPAMASSASSIN=1
       - ENABLE_CLAMAV=1
       - ENABLE_FAIL2BAN=1

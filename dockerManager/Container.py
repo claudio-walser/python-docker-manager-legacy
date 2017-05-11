@@ -76,6 +76,8 @@ class Container(object):
         volumeString += '-v=%s:%s ' % (volume['source'], volume['target'])
 
     hostnameString = self.name
+    if 'hostname' in self.settings:
+      hostnameString = self.settings['hostname']
     if 'domainname' in self.settings:
       hostnameString += '.%s' % self.settings['domainname']
 
