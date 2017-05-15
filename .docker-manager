@@ -5,6 +5,59 @@ containerDefaults:
 
 container:
 
+  kolab:
+    maxContainers: 1
+    image: registry-0:5000/net-sec/kolab
+    hostname: mail
+    domainname: net-sec.ch
+    volumes:
+      - source: /lib/modules
+        target: /lib/modules:ro
+      - source: /home/claudio/docker/kolab
+        target: /data:rw
+      - source: /etc/letsencrypt/live/mail.net-sec.ch
+        target: /etc/letsencrypt/live/mail.net-sec.ch:ro
+      - source: /etc/letsencrypt/archive/mail.net-sec.ch
+        target: /etc/letsencrypt/archive/mail.net-sec.ch:ro
+    environment:
+      - CERT_PATH=/etc/letsencrypt/live
+    expose:
+      - 80
+      - 443
+      - 25
+      - 587
+      - 110
+      - 995
+      - 143
+      - 993
+      - 4190
+      - 389
+    portMapping:
+      - 993:993
+      - 587:587
+      - 143:143
+      - "25:25"
+    nginx:
+      backendPort: 443
+    cap_add:
+      - NET_ADMIN
+
+  radicale:
+    maxContainers: 1
+    image: tomsquest/docker-radicale
+    volumes:
+      - source: /home/claudio/docker/radicale/conf
+        target: /radicale
+        uid: 1000
+      - source: /home/claudio/docker/radicale/data
+        target: /srv/radicale/
+        uid: 1000
+
+    expose:
+      - 5232
+    nginx:
+      backendPort: 5232
+
   mail:
     maxContainers: 1
     image: tvial/docker-mailserver:latest
