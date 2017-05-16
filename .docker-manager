@@ -42,56 +42,6 @@ container:
     cap_add:
       - NET_ADMIN
 
-  radicale:
-    maxContainers: 1
-    image: tomsquest/docker-radicale
-    volumes:
-      - source: /home/claudio/docker/radicale/conf
-        target: /radicale
-        uid: 1000
-      - source: /home/claudio/docker/radicale/data
-        target: /srv/radicale/
-        uid: 1000
-
-    expose:
-      - 5232
-    nginx:
-      backendPort: 5232
-
-  mail:
-    maxContainers: 1
-    image: tvial/docker-mailserver:latest
-    hostname: mail
-    domainname: net-sec.ch
-    volumes:
-      - source: /home/claudio/docker/mail/data
-        target: /var/mail
-      - source: /home/claudio/docker/mail/state
-        target: /var/mail-state
-      - source: /home/claudio/docker/mail/config
-        target: /tmp/docker-mailserver/
-      - source: /etc/letsencrypt
-        target: /etc/letsencrypt:ro
-    expose:
-      - 25
-      - 143
-      - 587
-      - 993
-    portMapping:
-      - 993:993
-      - 587:587
-      - 143:143
-      - "25:25"
-    environment:
-      - SSL_TYPE=letsencrypt
-      - ENABLE_SPAMASSASSIN=1
-      - ENABLE_CLAMAV=1
-      - ENABLE_FAIL2BAN=1
-      - ENABLE_POSTGREY=0
-      - ONE_DIR=1
-      - DMS_DEBUG=0
-    capAdd: NET_ADMIN
-
   grafana:
     maxContainers: 1
     image: grafana/grafana
