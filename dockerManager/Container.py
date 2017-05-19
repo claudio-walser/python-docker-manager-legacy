@@ -107,6 +107,10 @@ class Container(object):
     if 'cpus' in self.settings:
       cpuString += '--cpus="%s"' % (self.settings['cpus'])
 
+    memoryString = ''
+    if 'memory' in self.settings:
+      memoryString += '--memory="%s"' % (self.settings['memory'])
+
     capAddString = ''
     if 'capAdd' in self.settings:
       capAddString += '--cap-add="%s"' % (self.settings['capAdd'])
@@ -135,7 +139,8 @@ class Container(object):
     %s\
     %s\
     %s\
-    ' % (self.name, hostnameString, portMappingString, cpuString, capAddString, environmentString, privilegedString, exposeString, volumeString, restartString, dnsString, self.settings['image'], commandString)
+    %s\
+    ' % (self.name, hostnameString, portMappingString, cpuString, memoryString, capAddString, environmentString, privilegedString, exposeString, volumeString, restartString, dnsString, self.settings['image'], commandString)
     print(command)
     self.id = self.command.execute(command)
     self.created = True
