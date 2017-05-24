@@ -1,6 +1,7 @@
 containerDefaults:
   dns: 172.17.0.1
   restart: always
+  swappiness: 0
 
 
 container:
@@ -8,7 +9,6 @@ container:
   kolab:
     maxContainers: 1
     image: registry-0:5000/net-sec/kolab
-    memory: 1024m
     hostname: mail
     domainname: net-sec.ch
     volumes:
@@ -61,7 +61,6 @@ container:
 
   prometheus:
     maxContainers: 1
-    memory: 512m
     image: prom/prometheus
     volumes:
       - source: /home/claudio/docker/prometheus/conf
@@ -111,7 +110,6 @@ container:
 
   heinz:
     maxContainers: 1
-    memory: 512m
     image: registry-0:5000/net-sec/elasticsearch-kibana:kibana4
     sourceVolumes:
       - source: /home/claudio/docker/elasticsearch-base-kibana4
@@ -134,7 +132,6 @@ container:
 
   claudio:
     maxContainers: 1
-    memory: 512m
     image: registry-0:5000/net-sec/elasticsearch-kibana:kibana4
     sourceVolumes:
       - source: /home/claudio/docker/elasticsearch-base-kibana4
@@ -168,22 +165,6 @@ container:
     expose:
       - 80
 
-  ldap:
-    maxContainers: 1
-    image: beli/ldap
-    volumes:
-      - source: /home/claudio/docker/ldap/config
-        target: /etc/ldap
-        uid: 104
-      - source: /home/claudio/docker/ldap/data
-        target: /var/lib/ldap
-        uid: 104
-    environment:
-      - CONF_ROOTPW="password"
-      - CONF_BASEDN="dc=test,dc=com"
-    expose:
-      - 389
-
   openvpn:
     maxContainers: 1
     image: registry-0:5000/net-sec/openvpn-debug:latest
@@ -207,7 +188,6 @@ container:
 
   jenkins:
     maxContainers: 1
-    memory: 512m
     image: registry-0:5000/net-sec/jenkins:latest
     volumes:
       - source: /home/claudio/docker/jenkins
