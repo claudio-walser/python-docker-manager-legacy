@@ -111,6 +111,11 @@ class Container(object):
     if 'memory' in self.settings:
       memoryString += '--memory="%s"' % (self.settings['memory'])
 
+    swappinessString = ''
+    if 'swappiness' in self.settings:
+      swappinessString += '--memory-swappiness=%s' % (self.settings['swappiness'])
+
+
     capAddString = ''
     if 'capAdd' in self.settings:
       capAddString += '--cap-add="%s"' % (self.settings['capAdd'])
@@ -140,7 +145,8 @@ class Container(object):
     %s\
     %s\
     %s\
-    ' % (self.name, hostnameString, portMappingString, cpuString, memoryString, capAddString, environmentString, privilegedString, exposeString, volumeString, restartString, dnsString, self.settings['image'], commandString)
+    %s\
+    ' % (self.name, hostnameString, portMappingString, cpuString, memoryString, swappinessString, capAddString, environmentString, privilegedString, exposeString, volumeString, restartString, dnsString, self.settings['image'], commandString)
     print(command)
     self.id = self.command.execute(command)
     self.created = True
