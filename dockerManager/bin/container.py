@@ -12,6 +12,7 @@ from dockerManager.Hosts import Hosts
 from dockerManager.Nginx import Nginx
 from dockerManager.BasicAuth import BasicAuth
 from dockerManager.Container import Container
+from dockerManager.Header import Header
 
 interface = Cli.Interface()
 if not os.path.isfile('.docker-manager'):
@@ -88,6 +89,13 @@ def main():
   arguments = parser.parse_args()
   name = arguments.name
   command = arguments.command
+  try:
+    header = Header()
+    headerToCall = getattr(header, command)
+    result = headerToCall()
+  except Exception as e:
+    pass
+
   if name == 'all-container':
     names =  config.getContainerNames()
     for name in names:

@@ -166,11 +166,17 @@ class Container(object):
 
   # callable methods
   def status(self):
-    self.interface.header("Status of %s" % self.name)
-    self.interface.writeOut("ContainerID: %s" % self.getId())
-    self.interface.writeOut("Container IP Address: %s" % self.getIpAddress())
-    self.interface.writeOut("Container is created: %s" % self.isCreated())
-    self.interface.writeOut("Container running: %s" % self.isRunning())
+    statusString = str(self.getId()).ljust(20)
+    statusString += str(self.name).ljust(30)
+    statusString += str(self.getIpAddress()).ljust(15)
+    statusString += str(self.isCreated()).ljust(10)
+    statusString += str(self.isRunning()).ljust(10)
+    self.interface.writeOut(statusString)
+    # self.interface.header("Status of %s" % self.name)
+    # self.interface.writeOut("ContainerID: %s" % self.getId())
+    # self.interface.writeOut("Container IP Address: %s" % self.getIpAddress())
+    # self.interface.writeOut("Container is created: %s" % self.isCreated())
+    # self.interface.writeOut("Container running: %s" % self.isRunning())
 
   def start(self):
     if not self.created:
