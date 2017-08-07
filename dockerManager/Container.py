@@ -209,7 +209,7 @@ class Container(object):
     updateCommand = "docker image pull %s " % (self.settings['image'])
     ranBefore = self.isRunning()
     self.interface.writeOut(updateCommand)
-    self.command.execute(updateCommand)
+    self.interface.writeOut(self.command.execute(updateCommand))
     self.destroy()
     if ranBefore:
       self.start()
