@@ -49,3 +49,8 @@ class Hosts(object):
   def destroy(self):
     self.stop()
     pass
+
+  def update(self):
+    self.stop()
+    self.start()
+    pass

@@ -72,3 +72,6 @@ class Nginx(object):
   def destroy(self):
     self.removeUpstreamConfig()
     pass
+
+  def update(self):
+    pass

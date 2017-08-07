@@ -3,6 +3,7 @@ import os
 import shutil
 import json
 import time
+from pprint import pprint
 
 class Container(object):
 
@@ -147,7 +148,7 @@ class Container(object):
     %s\
     %s\
     ' % (self.name, hostnameString, portMappingString, cpuString, memoryString, swappinessString, capAddString, environmentString, privilegedString, exposeString, volumeString, restartString, dnsString, self.settings['image'], commandString)
-    print(command)
+    self.interface.writeOut(command)
     self.id = self.command.execute(command)
     self.created = True
     self.waitForIp()
@@ -203,3 +204,12 @@ class Container(object):
     self.interface.header("Destroy %s" % self.name)
     if self.created:
       self.command.execute('docker rm -f %s' % self.id)
+
+  def update(self):
+    updateCommand = "docker image pull %s " % (self.settings['image'])
+    ranBefore = self.isRunning()
+    self.interface.writeOut(updateCommand)
+    self.command.execute(updateCommand)
+    self.destroy()
+    if ranBefore:
+      self.start()

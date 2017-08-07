@@ -37,6 +37,7 @@ parser.add_argument(
         "status",
         "start",
         "stop",
+        "update",
         "restart",
         "destroy"
     ]

@@ -50,3 +50,6 @@ class BasicAuth(object):
   def destroy(self):
     self.remove()
     pass
+
+  def update(self):
+    pass
