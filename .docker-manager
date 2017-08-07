@@ -8,7 +8,7 @@ container:
 
   kolab:
     maxContainers: 1
-    image: registry-0:5000/net-sec/kolab
+    image: registry.net-sec.ch:443/net-sec/kolab
     hostname: mail
     domainname: net-sec.ch
     volumes:
@@ -110,7 +110,7 @@ container:
 
   heinz:
     maxContainers: 1
-    image: registry-0:5000/net-sec/elasticsearch-kibana:kibana4
+    image: registry.net-sec.ch:443/net-sec/elasticsearch-kibana:kibana4
     sourceVolumes:
       - source: /home/claudio/docker/elasticsearch-base-kibana4
         target: /home/claudio/docker/elasticsearch-heinz
@@ -132,7 +132,7 @@ container:
 
   claudio:
     maxContainers: 1
-    image: registry-0:5000/net-sec/elasticsearch-kibana:kibana4
+    image: registry.net-sec.ch:443/net-sec/elasticsearch-kibana:kibana4
     sourceVolumes:
       - source: /home/claudio/docker/elasticsearch-base-kibana4
         target: /home/claudio/docker/elasticsearch-claudio
@@ -154,7 +154,7 @@ container:
 
   lam:
     maxContainers: 1
-    image: registry-0:5000/net-sec/lam:latest
+    image: registry.net-sec.ch:443:5000/net-sec/lam:latest
     volumes:
       - source: /home/claudio/docker/lam/config
         target: /var/lib/ldap-account-manager/config
@@ -167,7 +167,7 @@ container:
 
   openvpn:
     maxContainers: 1
-    image: registry-0:5000/net-sec/openvpn-debug:latest
+    image: registry.net-sec.ch:443/net-sec/openvpn-debug:latest
     capAdd: NET_ADMIN
     volumes:
       - source: /home/claudio/docker/openvpn
@@ -180,7 +180,7 @@ container:
 
   hugo-rechtsberatung-walser:
     maxContainers: 1
-    image: registry-0:5000/net-sec/hugo-rechtsberatung-walser:latest
+    image: registry.net-sec.ch:443/net-sec/hugo-rechtsberatung-walser:latest
     expose:
       - 80
     nginx:
@@ -188,7 +188,7 @@ container:
 
   jenkins:
     maxContainers: 1
-    image: registry-0:5000/net-sec/jenkins:latest
+    image: registry.net-sec.ch:443/net-sec/jenkins:latest
     volumes:
       - source: /home/claudio/docker/jenkins
         target: /var/jenkins_home
@@ -227,7 +227,7 @@ container:
 
   reprepro:
     maxContainers: 1
-    image: registry-0:5000/net-sec/reprepro:latest
+    image: registry.net-sec.ch:443/net-sec/reprepro:latest
     volumes:
       - source: /home/claudio/docker/reprepro/.ssh
         target: /home/reprepro/.ssh
