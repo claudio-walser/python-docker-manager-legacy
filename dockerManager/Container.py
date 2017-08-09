@@ -193,6 +193,7 @@ class Container(object):
     self.interface.header("Stop %s" % self.name)
     if self.running:
       self.command.execute('docker stop %s' % self.id)
+      self.running = False
 
   def restart(self):
     self.interface.header("Restart %s" % self.name)
@@ -204,6 +205,8 @@ class Container(object):
     self.interface.header("Destroy %s" % self.name)
     if self.created:
       self.command.execute('docker rm -f %s' % self.id)
+      self.created = False
+      self.running = False
 
   def update(self):
     updateCommand = "docker image pull %s " % (self.settings['image'])
@@ -211,5 +214,12 @@ class Container(object):
     self.interface.writeOut(updateCommand)
     self.interface.writeOut(self.command.execute(updateCommand))
     self.destroy()
+
+    # wait until container is properly destroyed
+    counter = 1;
+    while self.created is True and counter < 1000:
+      counter++
+      break
+
     if ranBefore:
       self.start()
