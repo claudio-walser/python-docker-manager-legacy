@@ -218,7 +218,7 @@ class Container(object):
     # wait until container is properly destroyed
     counter = 1;
     while self.created is True and counter < 1000:
-      counter++
+      counter += 1
       break
 
     if ranBefore:
