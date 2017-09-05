@@ -8,7 +8,9 @@ container:
 
   kolab:
     maxContainers: 1
-    image: registry.net-sec.ch:443/net-sec/kolab
+    # newest version is broken, take the last working one
+    image: net-sec/kolab:7
+    #image: registry.net-sec.ch:443/net-sec/kolab
     hostname: mail
     domainname: net-sec.ch
     volumes:
@@ -130,54 +132,6 @@ container:
         - port: 9200
           name: elasticsearch
 
-  claudio:
-    maxContainers: 1
-    image: registry.net-sec.ch:443/net-sec/elasticsearch-kibana:kibana4
-    sourceVolumes:
-      - source: /home/claudio/docker/elasticsearch-base-kibana4
-        target: /home/claudio/docker/elasticsearch-claudio
-    volumes:
-      - source: /home/claudio/docker/elasticsearch-claudio/elasticsearch
-        target: /home/elasticsearch/elasticsearch/data
-        uid: 1000
-    expose:
-      - 9200
-      - 5601
-    environment:
-      - KIBANA_BASE_PATH="/claudio/kibana"
-    nginx:
-      backendPort:
-        - port: 5601
-          name: kibana
-        - port: 9200
-          name: elasticsearch
-
-  lam:
-    maxContainers: 1
-    image: registry.net-sec.ch:443:5000/net-sec/lam:latest
-    volumes:
-      - source: /home/claudio/docker/lam/config
-        target: /var/lib/ldap-account-manager/config
-        uid: 33
-      - source: /home/claudio/docker/lam/etc
-        target: /etc/ldap-account-manager/
-        uid: 33
-    expose:
-      - 80
-
-  openvpn:
-    maxContainers: 1
-    image: registry.net-sec.ch:443/net-sec/openvpn-debug:latest
-    capAdd: NET_ADMIN
-    volumes:
-      - source: /home/claudio/docker/openvpn
-        target: /etc/openvpn
-        uid: 0
-    portMapping:
-      - 1194:1194
-    expose:
-      - 1194
-
   hugo-rechtsberatung-walser:
     maxContainers: 1
     image: registry.net-sec.ch:443/net-sec/hugo-rechtsberatung-walser:latest
@@ -224,25 +178,3 @@ container:
         target: /var/lib/registry
     expose:
       - 5000
-
-  reprepro:
-    maxContainers: 1
-    image: registry.net-sec.ch:443/net-sec/reprepro:latest
-    volumes:
-      - source: /home/claudio/docker/reprepro/.ssh
-        target: /home/reprepro/.ssh
-        uid: 1000
-      - source: /home/claudio/docker/reprepro/.gnupg
-        target: /home/reprepro/.gnupg
-        uid: 1000
-      - source: /home/claudio/docker/reprepro/repositories
-        target: /var/repositories
-        uid: 1000
-      - source: /home/claudio/docker/reprepro/bin
-        target: /usr/local/bin
-        uid: 0
-      - source: /home/claudio/docker/reprepro/nginx
-        target: /etc/nginx/sites-enabled
-        uid: 0
-    expose:
-      - 22
