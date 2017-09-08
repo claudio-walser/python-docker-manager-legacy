@@ -100,6 +100,10 @@ class Container(object):
       for environment in self.settings['environment']:
         environmentString += '-e %s ' % environment
 
+    environmentFileString = ''
+    if 'environmentFile' in self.settings:
+      environmentFileString = '--env-file=%s' % (self.settings['environmentFile'])
+
     privilegedString = ''
     if "privileged" in self.settings:
       privilegedString = '--privileged'
@@ -147,7 +151,8 @@ class Container(object):
     %s\
     %s\
     %s\
-    ' % (self.name, hostnameString, portMappingString, cpuString, memoryString, swappinessString, capAddString, environmentString, privilegedString, exposeString, volumeString, restartString, dnsString, self.settings['image'], commandString)
+    %s\
+    ' % (self.name, hostnameString, portMappingString, cpuString, memoryString, swappinessString, capAddString, environmentString, environmentFileString, privilegedString, exposeString, volumeString, restartString, dnsString, self.settings['image'], commandString)
     self.interface.writeOut(command)
     self.id = self.command.execute(command)
     self.created = True

@@ -6,6 +6,10 @@ containerDefaults:
 
 container:
 
+  rust-server:
+    maxContainers: 1
+    image: didstopia/rust-server:latest
+
   kolab:
     maxContainers: 1
     image: registry.net-sec.ch:443/net-sec/kolab
