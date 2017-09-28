@@ -9,7 +9,7 @@ import Cli
 
 from dockerManager.Config import Config
 from dockerManager.Container import Container
-from dockerManager.Hosts import Hosts
+from dockerManager.plugins.Hosts import Hosts
 
 bridgeName = 'docker0'
 bridgeIpRange = '172.17.0.1/24'

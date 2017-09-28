@@ -1,7 +1,8 @@
 import os
 import Cli
+from dockerManager.plugins import AbstractPlugin
 
-class BasicAuth(object):
+class BasicAuth(AbstractPlugin):
 
   cli = Cli.Command()
   basePath = '/etc/nginx/basic_auth.d'
@@ -33,23 +34,11 @@ class BasicAuth(object):
 
 
   # callable methods
-  def status(self):
-    pass
-
   def start(self):
     # should optimize and do that only on creation of the container
     self.write()
     pass
 
-  def stop(self):
-    pass
-
-  def restart(self):
-    pass
-
   def destroy(self):
     self.remove()
-    pass
-
-  def update(self):
     pass

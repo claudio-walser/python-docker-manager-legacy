@@ -1,6 +1,7 @@
 import re
+from dockerManager.plugins import AbstractPlugin
 
-class Hosts(object):
+class Hosts(AbstractPlugin):
 
   container = None
   hostsFile = '/etc/hosts'
@@ -30,9 +31,6 @@ class Hosts(object):
 
 
   # callable methods
-  def status(self):
-    pass
-
   def start(self):
     self.add(self.container.getIpAddress(), self.container.getName())
     pass

@@ -9,7 +9,7 @@ import Cli
 
 from dockerManager.Config import Config
 from dockerManager.Container import Container
-from dockerManager.Hosts import Hosts
+from dockerManager.plugins.Hosts import Hosts
 
 
 interface = Cli.Interface()

@@ -1,7 +1,8 @@
 import os
 import Cli
+from dockerManager.plugins import AbstractPlugin
 
-class Nginx(object):
+class Nginx(AbstractPlugin):
 
   settings = None
   name = None
@@ -55,23 +56,11 @@ class Nginx(object):
 
 
   # callable methods
-  def status(self):
-    pass
-
   def start(self):
     # should optimize and do that only on creation of the container
     self.writeUpstreamConfig()
     pass
 
-  def stop(self):
-    pass
-
-  def restart(self):
-    pass
-
   def destroy(self):
     self.removeUpstreamConfig()
-    pass
-
-  def update(self):
     pass

@@ -8,11 +8,11 @@ import argparse
 import Cli
 
 from dockerManager.Config import Config
-from dockerManager.Hosts import Hosts
-from dockerManager.Nginx import Nginx
-from dockerManager.BasicAuth import BasicAuth
 from dockerManager.Container import Container
 from dockerManager.Header import Header
+from dockerManager.plugins.Hosts import Hosts
+from dockerManager.plugins.Nginx import Nginx
+from dockerManager.plugins.BasicAuth import BasicAuth
 
 interface = Cli.Interface()
 if not os.path.isfile('.docker-manager'):
