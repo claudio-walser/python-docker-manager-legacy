@@ -78,11 +78,11 @@ def dispatch(command, name):
       raise e
 
   if 'nginx' in settings and settings['nginx']:
-    nginx = Nginx(name, settings)
+    nginx = Nginx(container)
     methodToCall = getattr(nginx, command)
     result = methodToCall()
 
-    basicAuth = BasicAuth(name, settings)
+    basicAuth = BasicAuth(container)
     methodToCall = getattr(basicAuth, command)
     result = methodToCall()
 

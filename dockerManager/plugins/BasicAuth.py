@@ -7,11 +7,6 @@ class BasicAuth(AbstractPlugin):
   cli = Cli.Command()
   basePath = '/etc/nginx/basic_auth.d'
 
-
-  def __init__(self, name, settings):
-    self.name = name
-    self.settings = settings
-
   def write(self):
     if os.path.isfile("%s/%s" % (self.basePath, self.name)):
       print("Password for %s already set" % (self.name))

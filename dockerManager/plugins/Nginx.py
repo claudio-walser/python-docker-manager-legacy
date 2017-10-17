@@ -4,13 +4,7 @@ from dockerManager.plugins.AbstractPlugin import AbstractPlugin
 
 class Nginx(AbstractPlugin):
 
-  settings = None
-  name = None
   confd = '/etc/nginx/conf.d'
-
-  def __init__(self, name, settings):
-    self.name = name
-    self.settings = settings
 
   def writeUpstreamConfig(self):
     if isinstance(self.settings['nginx']['backendPort'], list):

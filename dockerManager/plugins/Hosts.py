@@ -3,11 +3,7 @@ from dockerManager.plugins.AbstractPlugin import AbstractPlugin
 
 class Hosts(AbstractPlugin):
 
-  container = None
   hostsFile = '/etc/hosts'
-
-  def __init__(self, container):
-    self.container = container
 
   def add(self, ip, hostname):
     with open(self.hostsFile, 'r+') as f:

@@ -37,6 +37,9 @@ class Container(object):
   def getName(self):
     return self.name
 
+  def getSettings(self):
+    return self.settings
+
   def getIpAddress(self):
     if self.running:
       return self.dockerSettings['NetworkSettings']['IPAddress']
