@@ -1,6 +1,5 @@
 import re
 from dockerManager.plugins.AbstractPlugin import AbstractPlugin
-from pprint import pprint
 
 class Hosts(AbstractPlugin):
 
