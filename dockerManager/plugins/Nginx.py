@@ -1,6 +1,6 @@
 import os
 import Cli
-from dockerManager.plugins import AbstractPlugin
+from dockerManager.plugins.AbstractPlugin import AbstractPlugin
 
 class Nginx(AbstractPlugin):
 

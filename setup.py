@@ -12,7 +12,8 @@ setup(
     packages=[
         '.',
         'dockerManager',
-        'dockerManager.bin'
+        'dockerManager.bin',
+        'dockerManager.plugins'
     ],
     install_requires=['pyyaml', 'argparse', 'argcomplete', 'shutilwhich'],
     entry_points={

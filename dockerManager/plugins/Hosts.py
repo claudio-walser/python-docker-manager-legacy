@@ -1,5 +1,6 @@
 import re
-from dockerManager.plugins import AbstractPlugin
+from dockerManager.plugins.AbstractPlugin import AbstractPlugin
+from pprint import pprint
 
 class Hosts(AbstractPlugin):
 
@@ -8,6 +9,7 @@ class Hosts(AbstractPlugin):
 
   def __init__(self, container):
     self.container = container
+
 
   def add(self, ip, hostname):
     with open(self.hostsFile, 'r+') as f:
