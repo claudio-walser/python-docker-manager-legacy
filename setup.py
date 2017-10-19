@@ -8,14 +8,14 @@ setup(
     description='Tool for container management',
     author='Claudio Walser',
     author_email='claudio.walser@srf.ch',
-    url='https://github.com/claudio-walser/docker-container',
+    url='https://github.com/claudio-walser/python-docker-manager',
     packages=[
         '.',
         'dockerManager',
         'dockerManager.bin',
         'dockerManager.plugins'
     ],
-    install_requires=['pyyaml', 'argparse', 'argcomplete', 'shutilwhich'],
+    install_requires=['simple-cli', 'pyyaml', 'argparse', 'argcomplete', 'shutilwhich'],
     entry_points={
         'console_scripts': [
             'docker-image = dockerManager.bin.image:main',
