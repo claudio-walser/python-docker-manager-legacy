@@ -2,5 +2,5 @@ feature: null
 master: master
 tag: v
 test: test
-versionScheme: null
-versionType: manual
+versionScheme: version.txt
+versionType: file
