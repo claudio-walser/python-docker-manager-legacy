@@ -1,3 +1,4 @@
+extraReleaseCommand: ./publish.sh
 feature: null
 master: master
 tag: v
