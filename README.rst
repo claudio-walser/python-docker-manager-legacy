@@ -96,3 +96,5 @@ Apache License 2.0 see
 https://github.com/claudio-walser/python-docker-manager/blob/master/LICENSE
 
 .. _Issues List: https://github.com/claudio-walser/python-docker-manager/issues
+
+.. include:: ./TODO.rst
