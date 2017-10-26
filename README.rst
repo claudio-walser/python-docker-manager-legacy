@@ -1,8 +1,8 @@
 Command line tool for managing docker-containers
 ================================================
 
-.. image:: https://readthedocs.org/projects/docker-manager/badge/?version=latest
-    :target: https://docker-manager.readthedocs.org/en/latest/?badge=latest
+.. image:: https://readthedocs.org/projects/python-docker-manager/badge/?version=latest
+    :target: https://python-docker-manager.readthedocs.org/en/latest/?badge=latest
 
 
 Description
