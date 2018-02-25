@@ -70,7 +70,7 @@ class Container(object):
     volumeString = ''
     if 'volumes' in self.settings:
       for volume in self.settings['volumes']:
-        if not os.path.isdir(volume['source']):
+        if not os.path.exists(volume['source']):
           self.interface.error("Volume source %s does not exist! - skipping" % volume['source'])
           continue
 
