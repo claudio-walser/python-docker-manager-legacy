@@ -20,7 +20,7 @@ setup(
     author_email='claudio.walser@srf.ch',
     url='https://github.com/claudio-walser/python-docker-manager',
     packages=find_packages(),
-    install_requires=['simple-cli', 'pyyaml', 'argparse', 'argcomplete', 'shutilwhich'],
+    install_requires=['pyyaml', 'argparse', 'argcomplete', 'shutilwhich'],
     entry_points={
         'console_scripts': [
             'docker-image = dockerManager.bin.image:main',
