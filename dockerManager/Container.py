@@ -8,6 +8,7 @@ class Container(object):
 
   id = None
   name = None
+  groupName = None
   running = False
   created = False
   settings = {}
@@ -17,8 +18,9 @@ class Container(object):
   waitedForIp = 0
   waitForIpMax = 20
 
-  def __init__(self, name, settings):
+  def __init__(self, name, settings, groupName):
     self.name = name
+    self.groupName = groupName
     self.settings = settings
     self.interface = Cli.Interface()
     self.command = Cli.Command()
@@ -33,6 +35,9 @@ class Container(object):
       return False
     self.dockerSettings = json.loads(output)[0]
     self.running = self.dockerSettings['State']['Running']
+
+  def getGroupName(self):
+    return self.groupName
 
   def getName(self):
     return self.name

@@ -7,7 +7,7 @@ class AbstractPlugin(object):
 
   def __init__(self, container):
     self.container = container
-    self.name = self.container.getName()
+    self.name = self.container.getGroupName()
     self.settings = self.container.getSettings()
 
   # callable methods
